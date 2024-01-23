@@ -6,18 +6,27 @@ using UnityEngine.UI;
 
 public class Tower : MonoBehaviour
 {
-    protected float towerAttack;
-    protected float health;
-    protected float attackSpeed;
-    protected float attackRange;
-    protected LayerMask unitLayer, towerLayer;
-    protected Transform target;
-    protected GameObject towerCanvas;
-    protected Button sell, move, cancel;
-    protected bool moving;
+    public LayerMask unitLayer, towerLayer;
+    public Transform target;
+    public GameObject towerCanvas;
+    public Button sell, move, cancel;
+    public bool moving;
+    public Sprite towerImage;
+    public float buyMana, sellMana;
+    public float levelId, upgradeId;
     Collider[] colliders;
     List<Collider> targets;
     RaycastHit hit;
+
+    public List<Stat> stats;
+    [Serializable]
+    public struct Stat
+    {
+        public float hp;
+        public float range;
+        public float speed;
+        public float actionDelay;
+    }
 
     private void Awake()
     {
@@ -70,3 +79,14 @@ public class Tower : MonoBehaviour
         }
     }
 }
+//[Serializable]
+//public class TowerLevels
+//{
+//    public struct Stat
+//    {
+//        public float hp;
+//        public float range;
+//        public float speed;
+//        public float actionDelay;
+//    }
+//}
