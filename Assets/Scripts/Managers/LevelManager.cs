@@ -7,10 +7,11 @@ using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] int levelDifficulty;
-    [SerializeField] int storyLevel;
-    [SerializeField] int chapter;
-    [SerializeField] List<GameObject> levels, stories;
+    public int levelDifficulty;
+    public int storyLevel;
+    public int chapter;
+    [SerializeField] List<GameObject> stories;
+    public List<StoryLevels> levels;
     [SerializeField] List<LevelButtons> buttons;
     [SerializeField] GameObject levelPanel, levelMenu, warMenu, environment;
     [SerializeField] Button play, autoRestart, close, next, previous;
@@ -22,10 +23,11 @@ public class LevelManager : MonoBehaviour
         {
             for (int j = 0; j < buttons[i].buttons.Count; j++)
             {
-                string name = buttons[i].buttons[j].transform.parent.name;
-                int chapterId = j;
-                int levelId = int.Parse(name.Substring(name.Length - 1, 1)) - 1;
-                buttons[i].buttons[j].onClick.AddListener(delegate { LevelPanelShow(difficulty.value, levelId, chapterId); });
+                LevelUIInfo levelUIInfo = buttons[i].buttons[j].GetComponent<LevelUIInfo>();
+                //string name = buttons[i].buttons[j].transform.parent.name;
+                //int chapterId = j;
+                //int storyLevelId = int.Parse(name.Substring(name.Length - 1, 1)) - 1;
+                buttons[i].buttons[j].onClick.AddListener(delegate { LevelPanelShow(difficulty.value, levelUIInfo.storyLevel, levelUIInfo.chapter); });
             }
         }
         play.onClick.AddListener(PlayGame);
@@ -39,6 +41,9 @@ public class LevelManager : MonoBehaviour
     }
     void LevelPanelShow(int levelDifficulty, int storyLevel, int chapter)
     {
+        //Oyun bitince eklenecek
+        levels[storyLevel].levels[chapter].SetActive(false);
+        //
         this.levelDifficulty = levelDifficulty;
         this.storyLevel = storyLevel;
         this.chapter = chapter;
@@ -49,11 +54,7 @@ public class LevelManager : MonoBehaviour
         levelMenu.SetActive(false);
         warMenu.SetActive(true);
         environment.SetActive(true);
-        foreach (var level in levels)
-        {
-            level.SetActive(false);
-        }
-        levels[chapter].SetActive(true);
+        levels[storyLevel].levels[chapter].SetActive(true);
     }
     void CloseGamePanel()
     {
@@ -85,4 +86,9 @@ public class LevelManager : MonoBehaviour
 public class LevelButtons
 {
     public List<Button> buttons;
+}
+[Serializable]
+public class StoryLevels
+{
+    public List<GameObject> levels;
 }

@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class WarManager : MonoBehaviour
 {
+    [SerializeField] LevelManager levelManager;
     [SerializeField] float mana, manaMax;
     [SerializeField] List<GameObject> towers;
     LevelData levelData;
+    int waveId = 0;
     void Start()
     {
         Transform parent = transform.parent;
-        for (int i = 0; i < parent.childCount; i++)
-        {
-            if (parent.GetChild(i).gameObject.activeSelf)
-            {
-                levelData = parent.GetChild(i).GetComponent<LevelData>();
-                break;
-            }
-        }
-        manaMax = levelData.mana;
+        levelData = levelManager.levels[levelManager.storyLevel].levels[levelManager.chapter].GetComponent<LevelData>();
+        manaMax = levelData.levels[levelManager.levelDifficulty].mana;
         mana = manaMax;
-        InvokeRepeating("ManaIncrease", levelData.startTime, levelData.repeatTime);
+        InvokeRepeating("ManaIncrease", levelData.levels[levelManager.levelDifficulty].startTime, levelData.levels[levelManager.levelDifficulty].repeatTime);
     }
     void Update()
     {
@@ -36,9 +31,9 @@ public class WarManager : MonoBehaviour
     }
     void ManaIncrease()
     {
-        if (mana + levelData.manaInc <= manaMax)
+        if (mana + levelData.levels[levelManager.levelDifficulty].waveData[waveId].manaInc <= manaMax)
         {
-            mana += levelData.manaInc;
+            mana += levelData.levels[levelManager.levelDifficulty].waveData[waveId].manaInc;
         }
     }
 }
