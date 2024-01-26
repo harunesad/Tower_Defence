@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Tower : MonoBehaviour
 {
     public LayerMask unitLayer, towerLayer;
-    public Transform target;
+    public Transform target, grid;
     public GameObject towerCanvas;
     public Button sell, move, cancel;
     public bool moving;

@@ -13,9 +13,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] List<GameObject> stories;
     public List<StoryLevels> levels;
     [SerializeField] List<LevelButtons> buttons;
+    [SerializeField] List<Image> stars;
+    [SerializeField] List<int> storyStars;
     [SerializeField] GameObject levelPanel, levelMenu, warMenu, environment;
     [SerializeField] Button play, autoRestart, close, next, previous;
-    [SerializeField] TMP_Dropdown difficulty;
+    public TMP_Dropdown difficulty;
     int storyIndex;
     void Start()
     {
@@ -27,7 +29,7 @@ public class LevelManager : MonoBehaviour
                 //string name = buttons[i].buttons[j].transform.parent.name;
                 //int chapterId = j;
                 //int storyLevelId = int.Parse(name.Substring(name.Length - 1, 1)) - 1;
-                buttons[i].buttons[j].onClick.AddListener(delegate { LevelPanelShow(difficulty.value, levelUIInfo.storyLevel, levelUIInfo.chapter); });
+                buttons[i].buttons[j].onClick.AddListener(delegate { LevelPanelShow(difficulty.value, levelUIInfo); });
             }
         }
         play.onClick.AddListener(PlayGame);
@@ -39,15 +41,59 @@ public class LevelManager : MonoBehaviour
     {
         
     }
-    void LevelPanelShow(int levelDifficulty, int storyLevel, int chapter)
+    public void ValueChanged()
+    {
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            for (int j = 0; j < buttons[i].buttons.Count; j++)
+            {
+                LevelUIInfo levelUIInfo = buttons[i].buttons[j].GetComponent<LevelUIInfo>();
+                if (levelUIInfo.completed[difficulty.value])
+                {
+                    levelUIInfo.transform.GetChild(0).gameObject.SetActive(false);
+                }
+                else
+                {
+                    levelUIInfo.transform.GetChild(0).gameObject.SetActive(true);
+                }
+            }
+        }
+    }
+    void LevelPanelShow(int levelDifficulty, LevelUIInfo levelUIInfo)
     {
         //Oyun bitince eklenecek
-        levels[storyLevel].levels[chapter].SetActive(false);
+        levels[levelUIInfo.storyLevel].levels[levelUIInfo.chapter].SetActive(false);
         //
-        this.levelDifficulty = levelDifficulty;
-        this.storyLevel = storyLevel;
-        this.chapter = chapter;
-        levelPanel.SetActive(true);
+        //int newChapter = 0;
+        //int newStoryLevel = 0;
+        //if (chapter == 0)
+        //{
+        //    newStoryLevel--;
+        //    newStoryLevel = Math.Clamp(newStoryLevel, 0, stories.Count);
+        //}
+        //else
+        //{
+        //    c
+        //}
+        if (!levelUIInfo.transform.GetChild(0).gameObject.activeSelf)
+        {
+            this.levelDifficulty = levelDifficulty;
+            storyLevel = levelUIInfo.storyLevel;
+            chapter = levelUIInfo.chapter;
+
+            for (int i = 0; i < stars.Count; i++)
+            {
+                if (i < levelUIInfo.star)
+                {
+                    stars[i].fillAmount = 1;
+                }
+                else
+                {
+                    stars[i].fillAmount = 0;
+                }
+            }
+            levelPanel.SetActive(true);
+        }
     }
     void PlayGame() 
     {

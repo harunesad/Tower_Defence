@@ -26,7 +26,8 @@ public class WarManager : MonoBehaviour
         if (mana >= towerMana)
         {
             mana -= towerMana;
-            Instantiate(towers[towerId], grid.position, Quaternion.identity);
+            var tower = Instantiate(towers[towerId], grid.position, Quaternion.identity);
+            tower.GetComponent<Tower>().grid = grid;
         }
     }
     void ManaIncrease()

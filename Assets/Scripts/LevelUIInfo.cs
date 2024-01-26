@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class LevelUIInfo : MonoBehaviour
 {
-    public int chapter, storyLevel;
+    [SerializeField]
+    LevelManager levelManager;
+    public int chapter, storyLevel, star;
+    public List<bool> completed;
     void Start()
     {
-        
+        if (completed[levelManager.difficulty.value])
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
+        else
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
-
-    // Update is called once per frame
     void Update()
     {
         
