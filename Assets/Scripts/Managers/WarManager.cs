@@ -6,7 +6,8 @@ public class WarManager : MonoBehaviour
 {
     [SerializeField] LevelManager levelManager;
     [SerializeField] float mana, manaMax;
-    [SerializeField] List<GameObject> towers;
+    public List<GameObject> towers;
+
     LevelData levelData;
     int waveId = 0;
     void Start()
@@ -23,11 +24,10 @@ public class WarManager : MonoBehaviour
     }
     public void TowerCreate(float towerMana, int towerId, Transform grid)
     {
-        if (mana >= towerMana)
+        if (mana >= towers[towerId].GetComponent<Tower>().stats[0].buyMana)
         {
-            mana -= towerMana;
-            var tower = Instantiate(towers[towerId], grid.position, Quaternion.identity);
-            tower.GetComponent<Tower>().grid = grid;
+            mana -= towers[towerId].GetComponent<Tower>().stats[0].buyMana;
+            var tower = Instantiate(towers[towerId], grid.position, Quaternion.identity, grid);
         }
     }
     void ManaIncrease()

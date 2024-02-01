@@ -7,6 +7,7 @@ public class CardDrag : MonoBehaviour
 {
     [SerializeField] protected CardsManager cardsManager;
     [SerializeField] protected RectTransform canvas;
+    [SerializeField] protected WarManager warManager;
     protected RectTransform myRect;
     public int cardsId;
     protected Transform parent;

@@ -7,12 +7,11 @@ using UnityEngine.UI;
 public class Tower : MonoBehaviour
 {
     public LayerMask unitLayer, towerLayer;
-    public Transform target, grid;
+    public Transform target;
     public GameObject towerCanvas;
     public Button sell, move, cancel;
     public bool moving;
     public Sprite towerImage;
-    public float buyMana, sellMana;
     public float levelId, upgradeId;
     Collider[] colliders;
     List<Collider> targets;
@@ -24,8 +23,9 @@ public class Tower : MonoBehaviour
     {
         public float hp;
         public float range;
-        public float speed;
-        public float actionDelay;
+        public float attackSpeed;
+        public float buyMana;
+        public float sellMana;
     }
 
     private void Awake()

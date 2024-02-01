@@ -533,6 +533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardsManager: {fileID: 2120195565}
   canvas: {fileID: 505457691}
+  warManager: {fileID: 1892404102}
   cardsId: 0
 --- !u!1 &46595589
 GameObject:
@@ -765,8 +766,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardsManager: {fileID: 2120195565}
   canvas: {fileID: 505457691}
+  warManager: {fileID: 1892404102}
   cardsId: 0
   myCardsId: 2
+  gridLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &160752962
 GameObject:
   m_ObjectHideFlags: 0
@@ -3129,7 +3134,7 @@ GameObject:
   - component: {fileID: 575232819}
   - component: {fileID: 575232818}
   - component: {fileID: 575232817}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TowerGrid (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3793,6 +3798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardsManager: {fileID: 2120195565}
   canvas: {fileID: 505457691}
+  warManager: {fileID: 1892404102}
   cardsId: 0
 --- !u!1 &662855228
 GameObject:
@@ -4504,7 +4510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &761452632
 Transform:
   m_ObjectHideFlags: 0
@@ -4653,8 +4659,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardsManager: {fileID: 2120195565}
   canvas: {fileID: 505457691}
+  warManager: {fileID: 1892404102}
   cardsId: 0
   myCardsId: 0
+  gridLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &780678810
 GameObject:
   m_ObjectHideFlags: 0
@@ -4781,7 +4791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &915385961
 Transform:
   m_ObjectHideFlags: 0
@@ -5799,8 +5809,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardsManager: {fileID: 2120195565}
   canvas: {fileID: 505457691}
+  warManager: {fileID: 1892404102}
   cardsId: 0
   myCardsId: 1
+  gridLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1265031492
 GameObject:
   m_ObjectHideFlags: 0
@@ -7180,7 +7194,7 @@ GameObject:
   - component: {fileID: 1710928417}
   - component: {fileID: 1710928416}
   - component: {fileID: 1710928415}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TowerGrid (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7755,7 +7769,7 @@ GameObject:
   - component: {fileID: 1850574287}
   - component: {fileID: 1850574286}
   - component: {fileID: 1850574285}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TowerGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8150,7 +8164,7 @@ GameObject:
   - component: {fileID: 1866620382}
   - component: {fileID: 1866620381}
   - component: {fileID: 1866620380}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TowerGrid (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8400,8 +8414,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardsManager: {fileID: 2120195565}
   canvas: {fileID: 505457691}
+  warManager: {fileID: 1892404102}
   cardsId: 0
   myCardsId: 3
+  gridLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1892404101
 GameObject:
   m_ObjectHideFlags: 0
@@ -8434,7 +8452,8 @@ MonoBehaviour:
   levelManager: {fileID: 1402880149}
   mana: 0
   manaMax: 0
-  towers: []
+  towers:
+  - {fileID: 6481761733567857934, guid: b322bf10e7b5be74a87bfe41ed7791ad, type: 3}
 --- !u!4 &1892404103
 Transform:
   m_ObjectHideFlags: 0
@@ -9395,6 +9414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0251ad8be8a6ebb4ebd2c54e1532b5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  warManager: {fileID: 0}
   cards:
   - {fileID: 21300000, guid: b1c6f1da0f9475d4d8c8fb057195bfd6, type: 3}
   - {fileID: 21300000, guid: c5f0bcbb55da58c48acda87e87f299fa, type: 3}

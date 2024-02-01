@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CardsManager : MonoBehaviour
 {
+    [SerializeField] WarManager warManager;
     [SerializeField] List<Sprite> cards, spells;
     [SerializeField] List<Image> myCards;
     [SerializeField] Image mySpell;
@@ -23,8 +24,8 @@ public class CardsManager : MonoBehaviour
     }
     public void RandomCard(int index)
     {
-        cardIndex = Random.Range(0, cards.Count);
-        myCards[index].sprite = cards[cardIndex];
+        cardIndex = Random.Range(0, warManager.towers.Count);
+        myCards[index].sprite = warManager.towers[cardIndex].GetComponent<Tower>().towerImage;
         myCards[index].GetComponent<CardDrag>().cardsId = cardIndex;
     }
     public void RandomSpell()
