@@ -6,6 +6,7 @@ public class WarManager : MonoBehaviour
 {
     [SerializeField] LevelManager levelManager;
     [SerializeField] float mana, manaMax;
+    [SerializeField] LayerMask towerLayer;
     public List<GameObject> towers;
 
     LevelData levelData;
@@ -20,13 +21,25 @@ public class WarManager : MonoBehaviour
     }
     void Update()
     {
-        
+        UIOpen();
+    }
+    void UIOpen()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100, towerLayer))
+            {
+                hit.transform.GetComponent<Tower>().towerCanvas.SetActive(!hit.transform.GetComponent<Tower>().towerCanvas.activeSelf);
+            }
+        }
     }
     public void TowerCreate(float towerMana, int towerId, Transform grid)
     {
-        if (mana >= towers[towerId].GetComponent<Tower>().stats[0].buyMana)
+        if (mana >= towers[towerId].GetComponent<Tower>().upgrade[towers[towerId].GetComponent<Tower>().upgradeId].levels[0].buyMana)
         {
-            mana -= towers[towerId].GetComponent<Tower>().stats[0].buyMana;
+            mana -= towers[towerId].GetComponent<Tower>().upgrade[towers[towerId].GetComponent<Tower>().upgradeId].levels[0].buyMana;
             var tower = Instantiate(towers[towerId], grid.position, Quaternion.identity, grid);
         }
     }

@@ -8,31 +8,31 @@ public class Tower : MonoBehaviour
 {
     public LayerMask unitLayer, towerLayer;
     public Transform target;
-    public GameObject towerCanvas;
-    public Button sell, move, cancel;
+    public GameObject towerCanvas, bullet;
+    public Button sell, move;
     public bool moving;
     public Sprite towerImage;
-    public float levelId, upgradeId;
+    public int levelId, upgradeId;
     Collider[] colliders;
     List<Collider> targets;
     RaycastHit hit;
 
-    public List<Stat> stats;
-    [Serializable]
-    public struct Stat
-    {
-        public float hp;
-        public float range;
-        public float attackSpeed;
-        public float buyMana;
-        public float sellMana;
-    }
+    public List<Upgrade> upgrade;
+    //public List<Stat> stats;
+    //[Serializable]
+    //public struct Stat
+    //{
+    //    public float hp;
+    //    public float range;
+    //    public float attackSpeed;
+    //    public float buyMana;
+    //    public float sellMana;
+    //}
 
     private void Awake()
     {
         move.onClick.AddListener(MoveTower);
         sell.onClick.AddListener(SellTower);
-        cancel.onClick.AddListener(CancelTower);
         targets.AddRange(colliders);
     }
     protected void TargetEnemy() 
@@ -67,26 +67,30 @@ public class Tower : MonoBehaviour
     {
 
     }
-    void CancelTower()
-    {
-        towerCanvas.SetActive(false);
-    }
-    protected void UIOpen()
+    void UIOpen()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            towerCanvas.SetActive(true);
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100, towerLayer))
+            {
+                hit.transform.GetComponent<Tower>().towerCanvas.SetActive(!hit.transform.GetComponent<Tower>().towerCanvas.activeSelf);
+            }
         }
     }
 }
-//[Serializable]
-//public class TowerLevels
-//{
-//    public struct Stat
-//    {
-//        public float hp;
-//        public float range;
-//        public float speed;
-//        public float actionDelay;
-//    }
-//}
+[Serializable]
+public class Upgrade
+{
+    public List<Level> levels;
+}
+[Serializable]
+public class Level
+{
+    public float hp;
+    public float range;
+    public float attackSpeed;
+    public float buyMana;
+    public float sellMana;
+}
